@@ -1,4 +1,4 @@
-# summariser_client
+# A multiplatform client to consime the Summariser API 
 
 Client app for the Text Summarisation API
 
