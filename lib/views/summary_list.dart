@@ -45,11 +45,9 @@ class _SummaryListState extends State<SummaryList> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => SummaryModify(),
-              ),
-            );
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => SummaryModify()))
+                .then((value) => _fetchSummaries());
           },
           child: Icon(Icons.add),
         ),

@@ -86,10 +86,16 @@ class _SummaryModifyState extends State<SummaryModify> {
                         if (isEditing) {
                           // update note
                         } else {
+                          setState(() {
+                            _isLoading = true;
+                          });
                           final summary =
                               CreateSummary(url: _titleController.text);
                           final result =
                               await summaryService.createSummary(summary);
+                          setState(() {
+                            _isLoading = false;
+                          });
                           final title = 'Done';
                           final text = result.error
                               ? (result.errorMessage ?? 'An error occurred')
@@ -107,7 +113,11 @@ class _SummaryModifyState extends State<SummaryModify> {
                                         },
                                       )
                                     ],
-                                  ));
+                                  )).then((dada) {
+                            if (result.data) {
+                              Navigator.of(context).pop();
+                            }
+                          });
                         }
                       },
                     ),
