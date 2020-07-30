@@ -14,10 +14,11 @@ class SummaryDelete extends StatelessWidget {
           },
         ),
         FlatButton(
-            child: Text('No'),
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            }),
+          child: Text('No'),
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+        ),
       ],
     );
   }

@@ -76,6 +76,34 @@ class _SummaryListState extends State<SummaryList> {
                     confirmDismiss: (direction) async {
                       final result = await showDialog(
                           context: context, builder: (_) => SummaryDelete());
+                      if (result) {
+                        final deleteResult = await service.deleteSummary(
+                            _apiResponse.data[index].summaryId.toString());
+
+                        var message;
+                        if (deleteResult != null && deleteResult.data == true) {
+                          message = 'The summary has been deleted successfully';
+                        } else {
+                          message =
+                              deleteResult?.errorMessage ?? 'As error occurred';
+                        }
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  title: Text('Done'),
+                                  content: Text(message),
+                                  actions: [
+                                    FlatButton(
+                                      child: Text('Ok'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                ));
+                        return deleteResult?.data ?? false;
+                      }
+                      print(result);
                       return result;
                     },
                     background: Container(
