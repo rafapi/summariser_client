@@ -79,7 +79,10 @@ class _SummaryListState extends State<SummaryList> {
                       if (result) {
                         final deleteResult = await service.deleteSummary(
                             _apiResponse.data[index].summaryId.toString());
-
+                        print(_apiResponse.data[index].summaryId);
+                        setState(() {
+                          _apiResponse.data.removeAt(index);
+                        });
                         var message;
                         if (deleteResult != null && deleteResult.data == true) {
                           message = 'The summary has been deleted successfully';
