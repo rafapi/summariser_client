@@ -8,7 +8,7 @@ class SummaryListing {
   factory SummaryListing.fromJson(Map<String, dynamic> item) {
     return SummaryListing(
         summaryId: item['id'],
-        summaryTitle: item['url'],
+        summaryTitle: item['title'],
         createDateTime: item['created_at'] != null
             ? DateTime.parse(item['created_at'])
             : null);

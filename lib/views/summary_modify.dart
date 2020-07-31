@@ -13,7 +13,7 @@ class SummaryModify extends StatefulWidget {
 }
 
 class _SummaryModifyState extends State<SummaryModify> {
-  bool get isEditing => widget.summaryId != null;
+  bool get isReading => widget.summaryId != null;
 
   SummariesService get summaryService => GetIt.I<SummariesService>();
 
@@ -22,6 +22,7 @@ class _SummaryModifyState extends State<SummaryModify> {
 
   TextEditingController _titleController = TextEditingController();
   TextEditingController _contentController = TextEditingController();
+  TextEditingController _urlController = TextEditingController();
 
   bool _isLoading = false;
 
@@ -29,7 +30,7 @@ class _SummaryModifyState extends State<SummaryModify> {
   void initState() {
     super.initState();
 
-    if (isEditing) {
+    if (isReading) {
       setState(() {
         _isLoading = true;
       });
@@ -41,6 +42,7 @@ class _SummaryModifyState extends State<SummaryModify> {
           errorMessage = response.errorMessage ?? 'An error occurred';
         }
         summary = response.data;
+        _urlController.text = summary.summaryUrl;
         _titleController.text = summary.summaryTitle;
         _contentController.text = summary.summaryContent;
       });
@@ -51,7 +53,7 @@ class _SummaryModifyState extends State<SummaryModify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing ? 'Edit Summary' : 'Create Summary'),
+        title: Text(isReading ? _titleController.text : 'Create Summary'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -59,38 +61,58 @@ class _SummaryModifyState extends State<SummaryModify> {
             ? Center(child: CircularProgressIndicator())
             : Column(
                 children: [
-                  TextField(
-                    controller: _titleController,
-                    decoration: InputDecoration(hintText: 'Note title'),
-                  ),
-                  Container(
-                    height: 8,
-                  ),
-                  TextField(
-                    controller: _contentController,
-                    decoration: InputDecoration(hintText: 'Note content'),
-                  ),
+                  if (isReading)
+                    SelectableText.rich(
+                      TextSpan(
+                        text: 'Source: ',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold),
+                        children: [
+                          TextSpan(
+                            text: _urlController.text,
+                            style: TextStyle(
+                              color: Colors.blueGrey,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  else
+                    TextField(
+                      controller: _urlController,
+                      decoration: InputDecoration(
+                          hintText: 'URL pointing to article of interest'),
+                    ),
                   Container(
                     height: 16,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 35,
-                    child: RaisedButton(
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      color: Theme.of(context).primaryColor,
-                      onPressed: () async {
-                        if (isEditing) {
-                          // update note
-                        } else {
+                  SelectableText.rich(
+                    TextSpan(
+                      text: _contentController.text,
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+//                    maxLines: 40,
+//                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (!isReading)
+                    SizedBox(
+                      width: double.infinity,
+                      height: 35,
+                      child: RaisedButton(
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Theme.of(context).primaryColor,
+                        onPressed: () async {
                           setState(() {
                             _isLoading = true;
                           });
                           final summary =
-                              CreateSummary(url: _titleController.text);
+                              CreateSummary(url: _urlController.text);
                           final result =
                               await summaryService.createSummary(summary);
                           setState(() {
@@ -118,10 +140,9 @@ class _SummaryModifyState extends State<SummaryModify> {
                               Navigator.of(context).pop();
                             }
                           });
-                        }
-                      },
-                    ),
-                  )
+                        },
+                      ),
+                    )
                 ],
               ),
       ),

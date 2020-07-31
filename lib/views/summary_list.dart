@@ -16,7 +16,7 @@ class _SummaryListState extends State<SummaryList> {
   APIResponse<List<SummaryListing>> _apiResponse;
   bool _isLoading = false;
 
-  String formaDateTime(DateTime dateTime) {
+  String formatDateTime(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
 
@@ -41,7 +41,7 @@ class _SummaryListState extends State<SummaryList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Summary List'),
+          title: Text('Article Summaries'),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -108,6 +108,7 @@ class _SummaryListState extends State<SummaryList> {
                         return deleteResult?.data ?? false;
                       }
                       // print(result);
+
                       return result;
                     },
                     background: Container(
@@ -127,7 +128,7 @@ class _SummaryListState extends State<SummaryList> {
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                       subtitle: Text(
-                          'Created on ${formaDateTime(_apiResponse.data[index].createDateTime)}'),
+                          'Created on ${formatDateTime(_apiResponse.data[index].createDateTime)}'),
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
