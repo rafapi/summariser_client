@@ -113,7 +113,7 @@ class _SummaryModifyState extends State<SummaryModify> {
                                         },
                                       )
                                     ],
-                                  )).then((dada) {
+                                  )).then((data) {
                             if (result.data) {
                               Navigator.of(context).pop();
                             }

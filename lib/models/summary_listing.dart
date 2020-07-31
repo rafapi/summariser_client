@@ -1,7 +1,7 @@
 class SummaryListing {
-  int summaryId;
-  String summaryTitle;
-  DateTime createDateTime;
+  final int summaryId;
+  final String summaryTitle;
+  final DateTime createDateTime;
 
   SummaryListing({this.summaryId, this.summaryTitle, this.createDateTime});
 

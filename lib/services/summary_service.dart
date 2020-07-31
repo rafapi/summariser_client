@@ -51,8 +51,9 @@ class SummariesService {
             APIResponse<bool>(error: true, errorMessage: 'An error occurred'));
   }
 
-  Future<APIResponse<bool>> deleteSummary(String summaryId) {
-    return http.delete(url + '/summaries/' + summaryId).then((data) {
+  Future<APIResponse<bool>> deleteSummary(String summaryId) async {
+    return await http.delete(url + '/summaries/$summaryId/').then((data) {
+      print(data.statusCode);
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);
       }

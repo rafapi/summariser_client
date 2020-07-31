@@ -83,9 +83,10 @@ class _SummaryListState extends State<SummaryList> {
                         var message;
                         if (deleteResult != null && deleteResult.data == true) {
                           message = 'The summary has been deleted successfully';
+                          // print(deleteResult.data);
                         } else {
                           message =
-                              deleteResult?.errorMessage ?? 'As error occurred';
+                              deleteResult?.errorMessage ?? 'An error occurred';
                         }
                         showDialog(
                             context: context,
@@ -103,7 +104,7 @@ class _SummaryListState extends State<SummaryList> {
                                 ));
                         return deleteResult?.data ?? false;
                       }
-                      print(result);
+                      // print(result);
                       return result;
                     },
                     background: Container(
