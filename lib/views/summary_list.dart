@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:summariser_client/models/api_response.dart';
 import 'package:summariser_client/models/summary_listing.dart';
@@ -31,6 +32,7 @@ class _SummaryListState extends State<SummaryList> {
       _isLoading = true;
     });
     _apiResponse = await service.getSummariesList();
+    print(_apiResponse.data.length);
 
     setState(() {
       _isLoading = false;
@@ -40,16 +42,25 @@ class _SummaryListState extends State<SummaryList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Article Summaries'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => SummaryModify()))
-                .then((value) => _fetchSummaries());
-          },
-          child: Icon(Icons.add),
+          backgroundColor: Colors.blueGrey,
+          leading: Builder(builder: (_) {
+            return Center(child: Text(_apiResponse.data.length.toString()));
+          }),
+          title: const Text('Article Summaries'),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: const Icon(FontAwesomeIcons.edit),
+              tooltip: 'Create Summary',
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => SummaryModify()))
+                    .then((value) => _fetchSummaries());
+              },
+            )
+          ],
         ),
         body: Builder(
           builder: (_) {
@@ -66,7 +77,7 @@ class _SummaryListState extends State<SummaryList> {
             return ListView.separated(
                 separatorBuilder: (_, __) => Divider(
                       height: 1,
-                      color: Colors.green,
+                      color: Colors.grey,
                     ),
                 itemBuilder: (_, index) {
                   return Dismissible(
