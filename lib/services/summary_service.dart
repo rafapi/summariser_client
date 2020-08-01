@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:summariser_client/models/api_response.dart';
 import 'package:summariser_client/models/create_summary.dart';
 import 'package:summariser_client/models/summary.dart';
@@ -13,7 +12,7 @@ class SummariesService {
   Future<APIResponse<List<SummaryListing>>> getSummariesList() async {
     return await http.get(url + '/summaries/').then((data) {
       if (data.statusCode == 200) {
-        final jsonData = json.decode(data.body);
+        final jsonData = json.decode(utf8.decode(data.bodyBytes));
         final summaries = <SummaryListing>[];
         for (var item in jsonData) {
           summaries.add(SummaryListing.fromJson(item));
@@ -29,7 +28,7 @@ class SummariesService {
   Future<APIResponse<Summary>> getSummary(String summaryId) async {
     return await http.get(url + '/summaries/' + summaryId).then((data) {
       if (data.statusCode == 200) {
-        final jsonData = json.decode(data.body);
+        final jsonData = json.decode(utf8.decode(data.bodyBytes));
 
         return APIResponse<Summary>(data: Summary.fromJson(jsonData));
       }
