@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:summariser_client/models/create_summary.dart';
 import 'package:summariser_client/models/summary.dart';
 import 'package:summariser_client/services/summary_service.dart';
+import 'package:summariser_client/services/url_launcher.dart';
 
 class SummaryModify extends StatefulWidget {
   final String summaryId;
@@ -62,29 +63,11 @@ class _SummaryModifyState extends State<SummaryModify> {
             : Column(
                 children: [
                   if (isReading)
-                    SelectableText.rich(
-                      TextSpan(
-                        text: 'Source: ',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold),
-                        children: [
-                          TextSpan(
-                            text: _urlController.text,
-                            style: TextStyle(
-                              color: Colors.blueGrey,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
+                    Hyperlink(_urlController.text)
                   else
                     TextField(
                       controller: _urlController,
-                      decoration: InputDecoration(
-                          hintText: 'URL pointing to article of interest'),
+                      decoration: InputDecoration(hintText: 'URL to summarise'),
                     ),
                   Container(
                     height: 16,
@@ -94,8 +77,6 @@ class _SummaryModifyState extends State<SummaryModify> {
                       text: _contentController.text,
                       style: TextStyle(color: Colors.black, fontSize: 15),
                     ),
-//                    maxLines: 40,
-//                    overflow: TextOverflow.ellipsis,
                   ),
                   if (!isReading)
                     SizedBox(
