@@ -17,6 +17,10 @@ class _SummaryListState extends State<SummaryList> {
   APIResponse<List<SummaryListing>> _apiResponse;
   bool _isLoading = false;
 
+  int get numSummaries {
+    return _apiResponse.data.length;
+  }
+
   String formatDateTime(DateTime dateTime) {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
@@ -45,7 +49,14 @@ class _SummaryListState extends State<SummaryList> {
         appBar: AppBar(
           backgroundColor: Colors.blueGrey,
           leading: Builder(builder: (_) {
-            return Center(child: Text(_apiResponse.data.length.toString()));
+            return Center(
+                child: Text(
+              numSummaries.toString(),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ));
           }),
           title: const Text('Article Summaries'),
           centerTitle: true,
@@ -74,7 +85,7 @@ class _SummaryListState extends State<SummaryList> {
               );
             }
             return ListView.separated(
-              itemCount: _apiResponse.data.length,
+              itemCount: numSummaries,
               separatorBuilder: (_, __) => Divider(
                 height: 1,
                 color: Colors.grey,
@@ -96,7 +107,7 @@ class _SummaryListState extends State<SummaryList> {
                       });
                       var message;
                       if (deleteResult != null && deleteResult.data == true) {
-                        message = 'The summary has been deleted successfully';
+                        message = 'Summary deleted successfully';
                         // print(deleteResult.data);
                       } else {
                         message =
