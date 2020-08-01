@@ -18,7 +18,7 @@ class _SummaryListState extends State<SummaryList> {
   bool _isLoading = false;
 
   int get numSummaries {
-    return _apiResponse.data.length;
+    return _apiResponse?.data?.length ?? 0;
   }
 
   String formatDateTime(DateTime dateTime) {
