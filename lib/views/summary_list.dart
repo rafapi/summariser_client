@@ -32,7 +32,6 @@ class _SummaryListState extends State<SummaryList> {
       _isLoading = true;
     });
     _apiResponse = await service.getSummariesList();
-    print(_apiResponse.data.length);
 
     setState(() {
       _isLoading = false;
@@ -75,84 +74,85 @@ class _SummaryListState extends State<SummaryList> {
               );
             }
             return ListView.separated(
-                separatorBuilder: (_, __) => Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                itemBuilder: (_, index) {
-                  return Dismissible(
-                    key: ValueKey(_apiResponse.data[index].summaryId),
-                    direction: DismissDirection.startToEnd,
-                    onDismissed: (direction) {},
-                    confirmDismiss: (direction) async {
-                      final result = await showDialog(
-                          context: context, builder: (_) => SummaryDelete());
-                      if (result) {
-                        final deleteResult = await service.deleteSummary(
-                            _apiResponse.data[index].summaryId.toString());
-                        print(_apiResponse.data[index].summaryId);
-                        setState(() {
-                          _apiResponse.data.removeAt(index);
-                        });
-                        var message;
-                        if (deleteResult != null && deleteResult.data == true) {
-                          message = 'The summary has been deleted successfully';
-                          // print(deleteResult.data);
-                        } else {
-                          message =
-                              deleteResult?.errorMessage ?? 'An error occurred';
-                        }
-                        showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                                  title: Text('Done'),
-                                  content: Text(message),
-                                  actions: [
-                                    FlatButton(
-                                      child: Text('Ok'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                ));
-                        return deleteResult?.data ?? false;
+              itemCount: _apiResponse.data.length,
+              separatorBuilder: (_, __) => Divider(
+                height: 1,
+                color: Colors.grey,
+              ),
+              itemBuilder: (_, index) {
+                return Dismissible(
+                  key: ValueKey(_apiResponse.data[index].summaryId),
+                  direction: DismissDirection.startToEnd,
+                  onDismissed: (direction) {},
+                  confirmDismiss: (direction) async {
+                    final result = await showDialog(
+                        context: context, builder: (_) => SummaryDelete());
+                    if (result) {
+                      final deleteResult = await service.deleteSummary(
+                          _apiResponse.data[index].summaryId.toString());
+                      print(_apiResponse.data[index].summaryId);
+                      setState(() {
+                        _apiResponse.data.removeAt(index);
+                      });
+                      var message;
+                      if (deleteResult != null && deleteResult.data == true) {
+                        message = 'The summary has been deleted successfully';
+                        // print(deleteResult.data);
+                      } else {
+                        message =
+                            deleteResult?.errorMessage ?? 'An error occurred';
                       }
-                      // print(result);
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                title: Text('Done'),
+                                content: Text(message),
+                                actions: [
+                                  FlatButton(
+                                    child: Text('Ok'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              ));
+                      return deleteResult?.data ?? false;
+                    }
+                    // print(result);
 
-                      return result;
-                    },
-                    background: Container(
-                      color: Colors.red,
-                      padding: EdgeInsets.only(left: 16),
-                      child: Align(
-                        child: Icon(
-                          Icons.auto_delete,
-                          color: Colors.white,
+                    return result;
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    padding: EdgeInsets.only(left: 16),
+                    child: Align(
+                      child: Icon(
+                        Icons.auto_delete,
+                        color: Colors.white,
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      _apiResponse.data[index].summaryTitle,
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                    subtitle: Text(
+                        'Created on ${formatDateTime(_apiResponse.data[index].createDateTime)}'),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => SummaryModify(
+                              summaryId: _apiResponse.data[index].summaryId
+                                  .toString()),
                         ),
-                        alignment: Alignment.centerLeft,
-                      ),
-                    ),
-                    child: ListTile(
-                      title: Text(
-                        _apiResponse.data[index].summaryTitle,
-                        style: TextStyle(color: Theme.of(context).primaryColor),
-                      ),
-                      subtitle: Text(
-                          'Created on ${formatDateTime(_apiResponse.data[index].createDateTime)}'),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => SummaryModify(
-                                summaryId: _apiResponse.data[index].summaryId
-                                    .toString()),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
-                itemCount: _apiResponse.data.length);
+                      );
+                    },
+                  ),
+                );
+              },
+            );
           },
         ));
   }
