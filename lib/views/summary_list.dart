@@ -127,7 +127,7 @@ class _SummaryListState extends State<SummaryList> {
                     padding: EdgeInsets.only(left: 16),
                     child: Align(
                       child: Icon(
-                        Icons.auto_delete,
+                        Icons.delete,
                         color: Colors.white,
                       ),
                       alignment: Alignment.centerLeft,
