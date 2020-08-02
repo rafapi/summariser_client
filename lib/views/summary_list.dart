@@ -58,7 +58,7 @@ class _SummaryListState extends State<SummaryList> {
               child: Text(
             numSummaries.toString(),
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           ));
         }),
         flexibleSpace: FlexibleSpaceBar(
@@ -79,6 +79,7 @@ class _SummaryListState extends State<SummaryList> {
           IconButton(
             icon: const Icon(Icons.add),
             tooltip: 'Create Summary',
+            iconSize: 30.0,
             onPressed: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (_) => SummaryModify()))
@@ -90,6 +91,11 @@ class _SummaryListState extends State<SummaryList> {
       SliverList(
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
+            if (_apiResponse.error) {
+              return Center(
+                child: Text(_apiResponse.errorMessage),
+              );
+            }
             return Container(
               margin: EdgeInsets.all(8.0),
               height: 80.0,

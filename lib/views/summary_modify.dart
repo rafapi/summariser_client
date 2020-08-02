@@ -70,7 +70,7 @@ class _SummaryModifyState extends State<SummaryModify> {
                       decoration: InputDecoration(hintText: 'URL to summarise'),
                     ),
                   Container(
-                    height: 16,
+                    height: 8,
                   ),
                   SelectableText.rich(
                     TextSpan(
