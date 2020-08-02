@@ -75,7 +75,7 @@ class _SummaryModifyState extends State<SummaryModify> {
                   SelectableText.rich(
                     TextSpan(
                       text: _contentController.text,
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      style: TextStyle(color: Colors.black, fontSize: 18),
                     ),
                   ),
                   if (!isReading)

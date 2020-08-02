@@ -21,13 +21,13 @@ class Hyperlink extends StatelessWidget {
         TextSpan(
           text: 'Source: ',
           style: TextStyle(
-              color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold),
+              color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
           children: [
             TextSpan(
                 text: _url,
                 style: TextStyle(
                   color: Colors.blueGrey,
-                  fontSize: 10,
+                  fontSize: 14,
                   decoration: TextDecoration.underline,
                 ))
           ],

@@ -129,8 +129,6 @@ class _SummaryListState extends State<SummaryList> {
                               ));
                       return deleteResult?.data ?? false;
                     }
-                    // print(result);
-
                     return result;
                   },
                   background: Container(
