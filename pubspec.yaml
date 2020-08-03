@@ -31,7 +31,7 @@ dependencies:
   get_it: ^4.0.4
   http: ^0.12.2
   url_launcher: ^5.5.0
-  font_awesome_flutter: ^8.8.1
+  # font_awesome_flutter: ^8.8.1
 
 dev_dependencies:
   flutter_test:

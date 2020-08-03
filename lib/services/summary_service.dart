@@ -6,8 +6,8 @@ import 'package:summariser_client/models/summary_listing.dart';
 import 'package:http/http.dart' as http;
 
 class SummariesService {
-  static const url = 'http://10.0.0.105:8002';
-//  static const API = 'desolate-stream-75858.herokuapp.com';
+  // static const url = 'http://10.0.0.105:8002';
+  static const url = 'https://desolate-stream-75858.herokuapp.com';
 
   Future<APIResponse<List<SummaryListing>>> getSummariesList() async {
     return await http.get(url + '/summaries/').then((data) {
