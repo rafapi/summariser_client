@@ -1,12 +1,14 @@
 # Client app for the Text Summarisation API
 
+### Backend
+* Repository: https://github.com/rafapi/fastapi_text_sum
+
 ## Details
-* The core funtionality of this app is to consume the REST API located here: https://desolate-stream-75858.herokuapp.com
-* That API expects a URL pointing to an article that we would like to summarise and will return that same URL back along with the articles title and the articles summary.
-* This app is written in Dart/Flutter and has been tested on Android and iOS devices.
+* Dart/Flutter mobile app
+* The backend API expects the URL of an article to be summarised. It will return that same URL back along with the article's title and its summary.
 
 ## TODO
-* Improve readability
-* Add snippet of content on front page
 * Authentication
+* Improve design and readability
+* Add snippet of content on front page
 * Move to more efficient hosting
