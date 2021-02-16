@@ -11,4 +11,5 @@
 * Authentication
 * Improve design and readability
 * Add snippet of content on front page
-* Move to more efficient hosting
+* Move to deployment oriented hosting
+* Add documentation
