@@ -1,4 +1,4 @@
-# Client app for the Text Summarisation API
+# Article Summarisation mobile app
 
 ### Backend
 * Repository: https://github.com/rafapi/fastapi_text_sum
