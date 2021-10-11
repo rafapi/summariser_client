@@ -1,5 +1,10 @@
 # Article Summarisation mobile app
 
+<p align="left">
+     <img src="https://img.shields.io/github/license/rafapi/mvenv">
+     <img src="https://img.shields.io/github/last-commit/rafapi/mvenv">
+</p>
+
 ### Backend
 * Repository: https://github.com/rafapi/fastapi_text_sum
 
