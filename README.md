@@ -1,8 +1,8 @@
 # Article Summarisation mobile app
 
 <p align="left">
-     <img src="https://img.shields.io/github/license/rafapi/mvenv">
-     <img src="https://img.shields.io/github/last-commit/rafapi/mvenv">
+     <img src="https://img.shields.io/github/license/rafapi/summariser_client">
+     <img src="https://img.shields.io/github/last-commit/rafapi/summariser_client">
 </p>
 
 ### Backend
